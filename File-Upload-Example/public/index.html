@@ -1,0 +1,30 @@
+<h1>File Upload Single</h1>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <input type="file" name="avatar" />
+  <button>Submit</button>
+</form>
+<hr />
+<h1>File Upload Multiple</h1>
+<form action="/upload/multiple" method="POST" enctype="multipart/form-data">
+  <input type="file" name="avatar" multiple />
+  <button>Submit</button>
+
+  <div class="images"></div>
+
+  <script>
+    const loadImages = async () => {
+      const response = await fetch('http://localhost:3001/images').then(response => response.json());
+      const imageElement = document.querySelector('.images');
+      imageElement.innerHTML = '';
+      response .images.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image.filePath;
+        img.height = '200';
+        imageElement.appendChild(img);
+      });
+    };
+
+    window.onload = loadImages;
+    
+  </script>
+</form>
